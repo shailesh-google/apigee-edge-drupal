@@ -38,8 +38,7 @@ jobs:
           - "8.3"
         drupal-core:
           # Should update the following as the minimum supported version from Drupal.org
-          - "11.2.x"
-          - "11.3.x"
+          - "11.1.x"
         instance-type:
           - "Edge"
           - "X"
@@ -140,10 +139,27 @@ jobs:
 
     - uses: nanasess/setup-chromedriver@v2
 
-    - run: |
+    - name: Start Chrome and ChromeDriver
+      run: |
         export DISPLAY=:99
-        chromedriver --url-base=/wd/hub &
-        sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
+        sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
+        chromedriver --url-base=/wd/hub --port=9515 &
+        # Wait for ChromeDriver to become available.
+        # This loop will repeatedly try to connect to localhost:9515 until it succeeds, or times out.
+        echo "Waiting for ChromeDriver to start..."
+        for i in $(seq 1 10); do # Try for up to 10 seconds
+          if curl -s http://localhost:9515/status; then
+            echo "ChromeDriver is up!"
+            break
+          else
+            echo "Attempt $i: ChromeDriver not ready yet. Waiting 1 second..."
+            sleep 1
+          fi
+        done
+        if ! curl -s http://localhost:9515/status; then
+          echo "ChromeDriver did not start in time. Exiting."
+          exit 1
+        fi
 
     - name: "Run PHPUnit tests with Code Coverage"
       run: |
