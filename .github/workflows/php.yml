@@ -38,8 +38,7 @@ jobs:
           - "8.3"
         drupal-core:
           # Should update the following as the minimum supported version from Drupal.org
-          - "11.2.x"
-          - "11.3.x"
+          - "11.1.x"
         instance-type:
           - "Edge"
           - "X"
@@ -167,7 +166,7 @@ jobs:
         cd drupal
         cp modules/contrib/apigee_edge/phpunit.core.xml.dist core/phpunit.xml
         vendor/bin/phpunit --migrate-configuration -c core apigee_edge modules/contrib/apigee_edge
-        vendor/bin/phpunit -c core --color --group apigee_edge --testsuite unit,kernel,functional,functional-javascript --coverage-clover /tmp/coverage_${{ matrix.instance-type }}.xml modules/contrib/apigee_edge
+        vendor/bin/phpunit -c core --color --group apigee_edge --testsuite unit,kernel,functional,functional-javascript --verbose --coverage-clover /tmp/coverage_${{ matrix.instance-type }}.xml modules/contrib/apigee_edge
 
     - name: Artifacts
       if: failure()
