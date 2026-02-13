@@ -50,7 +50,9 @@ class AppSettingsFormTest extends ApigeeEdgeFunctionalJavascriptTestBase {
    */
   protected function tearDown(): void {
     try {
-      $this->defaultApiProduct->delete();
+      if ($this->defaultApiProduct) {
+        $this->defaultApiProduct->delete();
+      }
     }
     catch (\Exception $exception) {
       $this->logException($exception);
