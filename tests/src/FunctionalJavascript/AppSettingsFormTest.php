@@ -81,7 +81,7 @@ class AppSettingsFormTest extends ApigeeEdgeFunctionalJavascriptTestBase {
     $product_list = $this->getSession()->getPage()->find('css', '#default-api-product-multiple fieldset');
     $this->assertFalse($product_list->hasAttribute('required'));
     $this->getSession()->getPage()->pressButton('edit-submit');
-    $this->assertSession()->pageTextContains('The configuration options have been saved.');
+    $web_assert->waitForText('The configuration options have been saved.');
 
     // Selecting default API product is required.
     $this->getSession()->getPage()->uncheckField('edit-user-select');
@@ -93,7 +93,7 @@ class AppSettingsFormTest extends ApigeeEdgeFunctionalJavascriptTestBase {
     $this->assertSession()->pageTextContains('Default API Products field is required.');
     $this->getSession()->getPage()->checkField("default_api_product_multiple[{$this->defaultApiProduct->getName()}]");
     $this->getSession()->getPage()->pressButton('edit-submit');
-    $this->assertSession()->pageTextContains('The configuration options have been saved.');
+    $web_assert->waitForText('The configuration options have been saved.');
 
     // Selecting default API product is not required.
     $this->getSession()->getPage()->checkField('edit-user-select');
@@ -103,7 +103,7 @@ class AppSettingsFormTest extends ApigeeEdgeFunctionalJavascriptTestBase {
     $this->assertFalse($product_list->hasAttribute('required'));
     $this->getSession()->getPage()->uncheckField("default_api_product_multiple[{$this->defaultApiProduct->getName()}]");
     $this->getSession()->getPage()->pressButton('edit-submit');
-    $this->assertSession()->pageTextContains('The configuration options have been saved.');
+    $web_assert->waitForText('The configuration options have been saved.');
   }
 
 }
