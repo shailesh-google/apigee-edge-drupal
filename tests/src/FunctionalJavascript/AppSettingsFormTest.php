@@ -91,7 +91,10 @@ class AppSettingsFormTest extends ApigeeEdgeFunctionalJavascriptTestBase {
     $this->assertTrue($product_list->hasClass('required'));
     $this->getSession()->getPage()->pressButton('edit-submit');
     $this->assertSession()->pageTextContains('Default API Products field is required.');
-    $this->getSession()->getPage()->checkField("default_api_product_multiple[{$this->defaultApiProduct->getName()}]");
+    // Re-find the checkbox element to avoid StaleElementReference exception.
+    $checkbox = $this->getSession()->getPage()->findField("default_api_product_multiple[{$this->defaultApiProduct->getName()}]");
+    $this->assertNotNull($checkbox, 'Checkbox not found after form submission.');
+    $checkbox->check();
     $this->getSession()->getPage()->pressButton('edit-submit');
     $web_assert->waitForText('The configuration options have been saved.');
 
