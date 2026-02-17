@@ -342,8 +342,8 @@ class AuthenticationFormJsTest extends ApigeeEdgeFunctionalJavascriptTestBase {
     $page->fillField('Password', $this->password);
     // Press the Save/Save configuration button.
     $page->pressButton('op');
-    $this->assertSession()->pageTextContains('Connection successful.');
-
+    $result = $this->assertSession()->waitForText('Connection successful.');
+    $this->assertNotNull($result, 'The expected text "Connection successful." did not appear.');
     // Because Key add/edit form redirects the user to the Key entity listing
     // page on success therefore we have to re-visit the form again.
     $visitFormAsAdmin();
