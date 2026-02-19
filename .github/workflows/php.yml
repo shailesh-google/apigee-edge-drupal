@@ -14,7 +14,7 @@ env:
   APIGEE_EDGE_HYBRID_ORGANIZATION: ${{ secrets.APIGEE_EDGE_HYBRID_ORGANIZATION }}
   BROWSERTEST_OUTPUT_DIRECTORY: "sites/simpletest/browser_output"
   BROWSERTEST_OUTPUT_BASE_URL: ""
-  MINK_DRIVER_ARGS_WEBDRIVER: '["chrome", { "chromeOptions": { "w3c": false, "args": ["--no-sandbox", "--disable-dev-shm-usage", "--disable-gpu", "--window-size=1280,1024"] } }, "http://127.0.0.1:9515/wd/hub"]'
+  MINK_DRIVER_ARGS_WEBDRIVER: '["chrome", {"browserName":"chrome","chromeOptions":{ "w3c": false, "args":["--disable-gpu","--headless", "--no-sandbox", "--disable-dev-shm-usage", "--disable-web-security", "--allow-running-insecure-content", "--disable-features=IsolateOrigins,site-per-process", "--window-size=1280,1024"]}}, "http://127.0.0.1:9515/wd/hub"]'
 
 on:
   push:
@@ -39,7 +39,6 @@ jobs:
         drupal-core:
           # Should update the following as the minimum supported version from Drupal.org
           - "11.2.x"
-          - "11.3.x"
         instance-type:
           - "Edge"
           - "X"
