@@ -115,6 +115,7 @@ jobs:
         composer require wikimedia/composer-merge-plugin --no-update --no-interaction
         composer require --dev phpspec/prophecy-phpunit:^2 --no-update --no-interaction
         composer require --dev drush/drush:^13.3 --no-update --no-interaction # Explicitly require drush
+        composer require drupal/key:^1.8 --no-update --no-interaction # Explicitly require drupal/key
 
         # Finally, run a single composer update
         composer update --with-all-dependencies --no-interaction
