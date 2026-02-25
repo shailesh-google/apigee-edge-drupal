@@ -108,16 +108,16 @@ jobs:
         composer config minimum-stability dev
         composer config platform.php ${{ matrix.php-version }}
         composer config --json extra.patches."drupal/core" '{ "Support entities that are neither content nor config entities": "https://www.drupal.org/files/issues/2020-12-02/3042467-50.patch"}'
-        composer config --json extra.merge-plugin.require '["modules/contrib/apigee_edge/composer.json"]'
 
         # Require all packages with --no-update
-        composer require "justinrainbow/json-schema:^6.5.1" --no-update
-        composer require 'drupal/rules:^4.0' --no-update
-        composer require wikimedia/composer-merge-plugin --no-update
-        composer require --dev phpspec/prophecy-phpunit:^2 --no-update
+        composer require "justinrainbow/json-schema:^6.5.1" --no-update --no-interaction
+        composer require 'drupal/rules:^4.0' --no-update --no-interaction
+        composer require wikimedia/composer-merge-plugin --no-update --no-interaction
+        composer require --dev phpspec/prophecy-phpunit:^2 --no-update --no-interaction
+        composer require --dev drush/drush:^13.3 --no-update --no-interaction # Explicitly require drush
 
         # Finally, run a single composer update
-        composer update --with-all-dependencies
+        composer update --with-all-dependencies --no-interaction
 
     # Install drupal using minimal installation profile and enable the module.
     - name: Install Drupal
