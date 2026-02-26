@@ -107,7 +107,7 @@ jobs:
         
         # --- THE FIX ---
         # Alias php-parser so the apigee mock client accepts the newer version required by Drupal 11.3
-        composer require "nikic/php-parser:^5.7.0 as 4.15.0" --dev --no-update
+        composer require "nikic/php-parser:5.7.0 as 4.15.0" --dev --no-update
         # ---------------
         
         composer require 'drupal/rules:^4.0'
