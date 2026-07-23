@@ -96,7 +96,7 @@ class DataResidencyEndpoint implements DataResidencyEndpointInterface {
       $orgController = new OrganizationController($client);
       $dataResidencyData = $orgController->getProjectMapping($key_type->getOrganization($key));
 
-      if (isset($dataResidencyData['location']) && $dataResidencyData['location']) {
+      if (isset($dataResidencyData['location']) && $dataResidencyData['location'] && strtolower($dataResidencyData['location']) !== 'global') {
         $dataResidencyEndpoint = str_replace("https://", "https://{$dataResidencyData['location']}-", $base_endpoint);
 
         $this->state->set(self::DRZ_ENDPOINT, $dataResidencyEndpoint);
